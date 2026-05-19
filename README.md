@@ -397,52 +397,36 @@ for u in usuarios:
 
 **Atualizações automáticas:** Qualquer push para `main` redeploya.
 
-### Backend (Render.com - Recomendado)
+### Execução local (recomendado para testes)
 
-**Pré-requisitos:**
-- Conta em [Render.com](https://render.com/)
-- Repositório GitHub
+Para desenvolvimento e testes locais você pode rodar o backend com Uvicorn e usar o frontend estático apontando para `http://localhost:8000`.
 
-**Passos:**
+1. Criar e ativar um virtualenv (opcional):
 
-1. **Criar Web Service**
-   - Dashboard → "New +" → "Web Service"
-   - Conectar GitHub
-
-2. **Configurar Build**
-   ```
-   Name: safemask-backend
-   Runtime: Python 3
-   Build Command: pip install -r backend/requirements.txt
-   Start Command: cd backend && uvicorn app.main:app --host 0.0.0.0 --port 8000
-   ```
-
-3. **Environment Variables**
-   ```
-   DATABASE_URL=postgresql://seu_usuario:senha@host/banco?sslmode=require
-   SECRET_KEY=sua-chave-secreta-super-segura
-   ```
-
-4. **Deploy**
-   - Backend em: `https://safemask-3.onrender.com`
-
-### Conectar Frontend ao Backend
-
-Após deploy, atualize `frontend/js/` com a URL do backend:
-
-```javascript
-// Desenvolvimento
-const API_URL = "http://localhost:8000";
-
-// Produção (Render)
-const API_URL = "https://safemask-3.onrender.com";
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r backend/requirements.txt
 ```
 
-Ou usar variável de ambiente:
+2. Rodar o backend localmente:
 
-```javascript
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8000";
+```powershell
+cd backend
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
+
+3. O frontend já vem configurado para apontar ao backend local por padrão: `frontend/js/api_config.js` define `window.API_URL = 'http://localhost:8000'`.
+
+4. Para servir o frontend estaticamente (opcional), abra o `index.html` diretamente no navegador ou use um servidor simples:
+
+```powershell
+cd frontend
+python -m http.server 8001
+# então abra http://localhost:8001/index.html
+```
+
+Se preferir usar o deploy no Render, mantenha as variáveis originais, mas para testes locais não é necessário fazer deploy a cada alteração.
 
 ---
 

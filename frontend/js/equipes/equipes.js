@@ -10,7 +10,8 @@ const btnOpenCreateTeam = document.getElementById('btnOpenCreateTeam');
 const btnOpenCreateTeamInline = document.getElementById('btnOpenCreateTeamInline');
 const btnBackDashboard = document.getElementById('btnBackDashboard');
 const menuLinks = document.querySelectorAll('.menu-link');
-const API_BASE = 'https://safemask-3.onrender.com/equipes';
+const API_HOST = window.API_URL || 'https://safemask-3.onrender.com';
+const API_BASE = `${API_HOST}/equipes`;
 
 const metricTotalEquipes = document.getElementById('metricTotalEquipes');
 const metricTotalMembros = document.getElementById('metricTotalMembros');
@@ -244,7 +245,7 @@ async function loadOverview() {
         teamList.innerHTML = `
             <li class="empty-state">
                 <strong>Erro ao carregar dados</strong>
-                <span>verifique se o backend esta ativo em https://safemask-3.onrender.com</span>
+                <span>verifique se o backend esta ativo em ${API_HOST}</span>
             </li>
         `;
     }

@@ -1,4 +1,5 @@
-const API_URL = 'https://safemask-3.onrender.com/auth';
+const API_HOST = window.API_URL || 'https://safemask-3.onrender.com';
+const API_URL = `${API_HOST}/auth`;
 
 const forgotPasswordForm = document.getElementById('forgotPasswordForm');
 const recoveryEmailInput = document.getElementById('recovery-email');

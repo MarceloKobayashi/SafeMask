@@ -23,7 +23,8 @@ const metaKey = document.getElementById('metaKey');
 const openCensoredBtn = document.getElementById('openCensoredBtn');
 const startRedactionBtn = document.getElementById('startRedactionBtn');
 
-const API_DOCUMENT = 'https://safemask-3.onrender.com/documentos/censurados';
+const API_HOST = window.API_URL || 'https://safemask-3.onrender.com';
+const API_DOCUMENT = `${API_HOST}/documentos/censurados`;
 const docId = Number(new URLSearchParams(window.location.search).get('doc_id'));
 
 const storedName = localStorage.getItem('userName') || 'Usuario';
@@ -170,7 +171,7 @@ async function loadDocument() {
         };
 
         if (documento.preview_url) {
-            const previewResponse = await fetch(`https://safemask-3.onrender.com${documento.preview_url}`, {
+            const previewResponse = await fetch(`${API_HOST}${documento.preview_url}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

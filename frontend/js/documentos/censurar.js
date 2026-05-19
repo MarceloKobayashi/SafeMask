@@ -32,7 +32,8 @@ const loadingStepLabel = document.getElementById('loadingStepLabel');
 const loadingFileName = document.getElementById('loadingFileName');
 const loadingBadgeRedaction = document.getElementById('loadingBadgeRedaction');
 const loadingBadgeTeams = document.getElementById('loadingBadgeTeams');
-const API_DASHBOARD_OVERVIEW = 'https://safemask-3.onrender.com/dashboard/overview';
+const API_HOST = window.API_URL || 'https://safemask-3.onrender.com';
+const API_DASHBOARD_OVERVIEW = `${API_HOST}/dashboard/overview`;
 
 const storedName = localStorage.getItem('userName') || 'Usuario';
 userNameElement.textContent = storedName;
@@ -422,7 +423,7 @@ saveCensoredDocBtn.addEventListener('click', async () => {
             return;
         }
 
-        const response = await fetch('https://safemask-3.onrender.com/documentos/salvar-censurado', {
+        const response = await fetch(`${API_HOST}/documentos/salvar-censurado`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`
